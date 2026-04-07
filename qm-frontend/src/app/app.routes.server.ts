@@ -17,5 +17,7 @@ export const serverRoutes: ServerRoute[] = [
   {
     path: '**',
     renderMode: RenderMode.Client  // ← Change Prerender to Client
-  }
+  },
+  { path: 'history',
+    renderMode: RenderMode.Client },
 ];

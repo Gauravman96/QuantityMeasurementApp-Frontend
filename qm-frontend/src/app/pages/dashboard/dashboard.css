@@ -230,6 +230,27 @@ h1 {
   opacity: 0.6;
   cursor: not-allowed;
 }
+/* history */
+.nav-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-btn {
+  padding: 8px 20px;
+  background: transparent;
+  border: 1px solid #2a2a4a;
+  color: #aaaacc;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  border-color: #6c63ff;
+  color: white;
+}
 
 /* ── Result Card ── */
 .result-card {

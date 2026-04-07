@@ -111,6 +111,10 @@ export class DashboardComponent implements OnInit {
     this.errorMsg = '';
   }
 
+  goToHistory() {
+  this.router.navigate(['/history']);
+} 
+
   // ─── Calculate ───────────────────────────────────
   calculate() {
     this.resultData = null;
