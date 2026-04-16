@@ -1,0 +1,110 @@
+<div class="history-wrapper">
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <span class="brand">⚖️ Quantity Measurement</span>
+    <div class="nav-actions">
+      <button class="nav-btn" (click)="goToDashboard()">← Dashboard</button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <h1>My History</h1>
+    <p class="subtitle">All your past calculations</p>
+
+    <!--  DELETE ALL BUTTON -->
+    <div style="text-align:center; margin-bottom: 15px;">
+      <button class="delete-all-btn" (click)="deleteAll()">
+        🗑 Delete All
+      </button>
+    </div>
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs">
+      <button
+        *ngFor="let op of operations"
+        (click)="filterByOperation(op)"
+        [class.active]="selectedOperation === op">
+        {{ op }}
+      </button>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading" *ngIf="loading">
+      Loading history...
+    </div>
+
+    <!-- ERROR -->
+    <div class="error-box" *ngIf="errorMsg">
+      ❌ {{ errorMsg }}
+    </div>
+
+    <!-- EMPTY -->
+    <div class="empty-box" *ngIf="!loading && filteredHistory.length === 0 && !errorMsg">
+      No history found for this filter.
+    </div>
+
+    <!-- HISTORY LIST -->
+    <div class="history-list" *ngIf="!loading && filteredHistory.length > 0">
+
+      <div class="history-card" *ngFor="let item of filteredHistory">
+
+        <!-- Top Row -->
+        <div class="card-top">
+          <span class="op-badge">
+            {{ getOperationSymbol(item.operation) }} {{ item.operation }}
+          </span>
+          <span class="card-date" *ngIf="item.createdAt">
+            {{ item.createdAt | date: 'dd MMM yyyy, hh:mm a' }}
+          </span>
+        </div>
+
+        <!-- Input Row -->
+        <div class="card-input">
+          <span class="input-val">{{ item.thisValue }} {{ item.thisUnit }}</span>
+
+          <span class="op-symbol">
+            {{
+              item.operation === 'COMPARE'  ? 'vs'  :
+              item.operation === 'CONVERT'  ? '→'   :
+              item.operation === 'ADD'      ? '+'   :
+              item.operation === 'SUBTRACT' ? '-'   :
+              item.operation === 'MULTIPLY' ? '×'   : '÷'
+            }}
+          </span>
+
+          <span class="input-val"
+                *ngIf="item.operation !== 'CONVERT'">
+            {{ item.thatValue }} {{ item.thatUnit }}
+          </span>
+
+          <span class="input-val"
+                *ngIf="item.operation === 'CONVERT'">
+            {{ item.thatUnit }}
+          </span>
+        </div>
+
+        <!-- Result Row -->
+        <div class="card-result">
+          <span class="result-label">Result:</span>
+          <span class="result-value"
+                [class.equal]="item.resultString === 'true'"
+                [class.notequal]="item.resultString === 'false'">
+            {{ getResultDisplay(item) }}
+          </span>
+        </div>
+
+        <!--  DELETE ONE BUTTON -->
+        <div style="text-align:right; margin-top:10px;">
+          <button class="delete-btn" (click)="deleteOne(item.id)">
+            Delete
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

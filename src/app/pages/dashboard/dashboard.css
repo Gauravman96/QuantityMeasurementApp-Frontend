@@ -1,0 +1,319 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-wrapper {
+  min-height: 100vh;
+  background: #0f0f1a;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ── Navbar ── */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 32px;
+  background: #1a1a2e;
+  border-bottom: 1px solid #2a2a4a;
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a78bfa;
+}
+
+.logout-btn {
+  padding: 8px 20px;
+  background: transparent;
+  border: 1px solid #6c63ff;
+  color: #6c63ff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background: #6c63ff;
+  color: white;
+}
+
+/* ── Container ── */
+.container {
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 0 20px 40px 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #e2e8f0;
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 28px;
+  border-radius: 8px;
+  border: 1px solid #2a2a4a;
+  background: #1a1a2e;
+  color: #aaaacc;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tabs button:hover {
+  border-color: #6c63ff;
+  color: #ffffff;
+}
+
+.tabs button.active {
+  background: #6c63ff;
+  border-color: #6c63ff;
+  color: white;
+}
+
+/* ── Sub Tabs (Arithmetic) ── */
+.sub-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.sub-tabs button {
+  padding: 7px 18px;
+  border-radius: 20px;
+  border: 1px solid #2a2a4a;
+  background: #0f0f1a;
+  color: #aaaacc;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sub-tabs button:hover {
+  border-color: #6c63ff;
+  color: #ffffff;
+}
+
+.sub-tabs button.active {
+  background: #6c63ff;
+  border-color: #6c63ff;
+  color: white;
+}
+
+/* ── Type Selector ── */
+.type-selector {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.type-selector label {
+  color: #aaaacc;
+  font-size: 14px;
+}
+
+.type-selector select {
+  padding: 8px 14px;
+  background: #1a1a2e;
+  border: 1px solid #2a2a4a;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ── Inputs Row ── */
+.inputs-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.input-card {
+  background: #1a1a2e;
+  border: 1px solid #2a2a4a;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.input-card label {
+  color: #aaaacc;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.input-card input {
+  padding: 9px 12px;
+  background: #0f0f1a;
+  border: 1px solid #2a2a4a;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-card input:focus {
+  border-color: #6c63ff;
+}
+
+.input-card select {
+  padding: 9px 12px;
+  background: #0f0f1a;
+  border: 1px solid #2a2a4a;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ── Operator ── */
+.operator {
+  font-size: 24px;
+  font-weight: 700;
+  color: #6c63ff;
+  padding-bottom: 16px;
+}
+
+/* ── Button ── */
+.main-btn {
+  display: block;
+  margin: 0 auto 20px;
+  padding: 12px 48px;
+  background: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.main-btn:hover:not(:disabled) {
+  background: #5a52e0;
+  transform: translateY(-1px);
+}
+
+.main-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+/* history */
+.nav-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-btn {
+  padding: 8px 20px;
+  background: transparent;
+  border: 1px solid #2a2a4a;
+  color: #aaaacc;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  border-color: #6c63ff;
+  color: white;
+}
+
+/* ── Result Card ── */
+.result-card {
+  margin-top: 16px;
+  background: #1a1a2e;
+  border: 1px solid #2a2a4a;
+  border-radius: 14px;
+  padding: 20px 28px;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.result-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6c63ff;
+  margin-bottom: 8px;
+}
+
+.result-mainline {
+  font-size: 16px;
+  color: #aaaacc;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.result-divider {
+  height: 1px;
+  background: #2a2a4a;
+  margin: 0 auto 12px;
+  width: 60%;
+}
+
+.result-answer {
+  font-size: 36px;
+  font-weight: 700;
+  color: #a78bfa;
+}
+
+.result-answer.equal {
+  color: #6ee77a;
+}
+
+.result-answer.notequal {
+  color: #ff7a7a;
+}
+
+/* ── Error Box ── */
+.error-box {
+  margin-top: 20px;
+  padding: 14px 20px;
+  background: #2e1a1a;
+  border: 1px solid #4a2a2a;
+  border-radius: 10px;
+  color: #ff7a7a;
+  text-align: center;
+  font-size: 14px;
+}

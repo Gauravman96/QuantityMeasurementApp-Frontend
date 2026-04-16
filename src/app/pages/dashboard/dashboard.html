@@ -1,0 +1,110 @@
+<div class="dashboard-wrapper">
+
+ <div class="navbar">
+  <span class="brand"> Quantity Measurement</span>
+  <div class="nav-actions">
+    <button class="nav-btn" (click)="goToHistory()">📋 History</button>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</div>
+
+  <div class="container">
+
+    <h1>Measurement Dashboard</h1>
+
+    <!-- TABS -->
+    <div class="tabs">
+  <button (click)="setAction('COMPARE')"
+          [class.active]="activeAction === 'COMPARE'">Compare</button>
+  <button (click)="setAction('CONVERT')"
+          [class.active]="activeAction === 'CONVERT'">Convert</button>
+  <button (click)="setAction('ARITHMETIC')"
+          [class.active]="activeAction === 'ARITHMETIC'">Arithmetic</button>
+</div>
+
+<!-- ARITHMETIC SUB-TABS — only show when ARITHMETIC is active -->
+<div class="sub-tabs" *ngIf="activeAction === 'ARITHMETIC'">
+  <button (click)="setArithmeticOp('ADD')"
+          [class.active]="arithmeticOp === 'ADD'">➕ Add</button>
+  <button (click)="setArithmeticOp('SUBTRACT')"
+          [class.active]="arithmeticOp === 'SUBTRACT'">➖ Subtract</button>
+  <button (click)="setArithmeticOp('MULTIPLY')"
+          [class.active]="arithmeticOp === 'MULTIPLY'">✖️ Multiply</button>
+  <button (click)="setArithmeticOp('DIVIDE')"
+          [class.active]="arithmeticOp === 'DIVIDE'">➗ Divide</button>
+</div>
+
+    <!-- MEASUREMENT TYPE -->
+    <div class="type-selector">
+      <label>Measurement Type</label>
+      <select [(ngModel)]="measurementType1" (change)="onTypeChange()">
+        <option>LENGTH</option>
+        <option>WEIGHT</option>
+        <option>VOLUME</option>
+      </select>
+    </div>
+
+    <!-- INPUTS -->
+    <div class="inputs-row">
+
+      <!-- Quantity 1 -->
+      <div class="input-card">
+        <label>{{ activeAction === 'CONVERT' ? 'From' : 'Value 1' }}</label>
+        <input type="number" [(ngModel)]="value1" />
+        <select [(ngModel)]="unit1">
+          <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+
+      <!-- Operator -->
+      <div class="operator">
+  {{ activeAction === 'COMPARE' ? 'vs' :
+     activeAction === 'CONVERT' ? '→' :
+     arithmeticOp === 'ADD'      ? '+' :
+     arithmeticOp === 'SUBTRACT' ? '-' :
+     arithmeticOp === 'MULTIPLY' ? '×' : '÷' }}
+</div>
+
+      <!-- Quantity 2 -->
+      <div class="input-card" *ngIf="activeAction !== 'CONVERT'">
+        <label>Value 2</label>
+        <input type="number" [(ngModel)]="value2" />
+        <select [(ngModel)]="unit2">
+          <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+
+      <!-- CONVERT -->
+      <div class="input-card" *ngIf="activeAction === 'CONVERT'">
+        <label>To (target unit)</label>
+        <select [(ngModel)]="targetUnit">
+          <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- BUTTON -->
+    <button class="main-btn" (click)="calculate()" [disabled]="loading">
+      {{ loading ? 'Calculating...' : 'Calculate' }}
+    </button>
+
+    <!--  RESULT CARD (FIXED SAFE BINDING) -->
+    <div class="result-card" *ngIf="resultData">
+  <div class="result-label">{{ resultData!.label }}</div>
+  <div class="result-mainline">{{ resultData!.mainLine }}</div>
+  <div class="result-divider"></div>
+  <div class="result-answer"
+       [class.equal]="resultData!.isEqual === true"
+       [class.notequal]="resultData!.isEqual === false">
+    {{ resultData!.answer }}
+  </div>
+</div>
+
+<!-- ERROR -->
+<div class="error-box" *ngIf="errorMsg">
+  {{ errorMsg }}
+</div>
+
+</div>
+</div>
