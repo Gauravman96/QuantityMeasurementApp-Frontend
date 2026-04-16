@@ -3,8 +3,8 @@
 [build]
 # Command to run during build
 command = "npm run build"
-# Directory to deploy (Angular static build output)
-publish = "dist/qm-frontend"
+# Directory to deploy (Angular browser build output from SSR)
+publish = "dist/qm-frontend/browser"
 # Functions directory (if using serverless functions)
 functions = "netlify/functions"
 
