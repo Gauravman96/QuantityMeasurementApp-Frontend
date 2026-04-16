@@ -1,48 +1,31 @@
-# Netlify Build Configuration for Angular Application
+# Netlify Configuration for Angular (Static Build)
 
 [build]
-# Command to run during build
-command = "npm run build"
-# Directory to deploy (Angular browser build output from SSR)
-publish = "dist/qm-frontend/browser"
-# Functions directory (if using serverless functions)
-functions = "netlify/functions"
+  command = "npm run build:netlify"
+  publish = "dist/qm-frontend/browser"
 
-# Environment variables
 [build.environment]
-NODE_VERSION = "20"
-NPM_VERSION = "10"
+  NODE_VERSION = "20"
+  NPM_VERSION = "10"
 
-# Redirect for SPA routing - keep all routes pointing to index.html
+# Angular SPA Routing Fix
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
-# Cache settings
+# Basic Caching (safe defaults)
 [[headers]]
-for = "/*"
-[headers.values]
-Cache-Control = "public, max-age=0, must-revalidate"
-
-[[headers]]
-for = "/index.html"
-[headers.values]
-Cache-Control = "public, max-age=0, must-revalidate"
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
-for = "/styles-*.css"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-for = "/*.js"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
-
-# Rewrite for API calls (optional - adjust if you have a backend API)
-# [[redirects]]
-# from = "/api/*"
-# to = "https://your-backend-api.com/api/:splat"
-# status = 200
-# force = true
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
