@@ -235,3 +235,30 @@ h1 {
 .result-value.notequal {
   color: #ff7a7a;
 }
+
+.delete-btn {
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
+.delete-all-btn {
+  padding: 8px 18px;
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.delete-all-btn:hover {
+  background: #e60000;
+}

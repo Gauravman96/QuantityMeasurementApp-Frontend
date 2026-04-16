@@ -4,7 +4,7 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 export const serverRoutes: ServerRoute[] = [
   {
     path: 'login',
-    renderMode: RenderMode.Client  // Client not Prerender
+    renderMode: RenderMode.Client  // Client not Prerender CSR (Client Side Rendering)
   },
   {
     path: 'signup',
@@ -12,12 +12,15 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'dashboard',
-    renderMode: RenderMode.Client  // ← Most important — dashboard makes API calls
-  },
+    renderMode: RenderMode.Client 
+   },                                       // dashboard makes API calls
+    { path: 'history',
+    renderMode: RenderMode.Client 
+    },
   {
     path: '**',
-    renderMode: RenderMode.Client  // ← Change Prerender to Client
+    renderMode: RenderMode.Client  // Change Prerender to Client
   },
-  { path: 'history',
-    renderMode: RenderMode.Client },
+
+
 ];

@@ -1,15 +1,26 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject, PLATFORM_ID } from '@angular/core';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('token');
+  const platformId = inject(PLATFORM_ID);
+  const token = isPlatformBrowser(platformId) ? localStorage.getItem('token') : null;
 
-  console.log('Interceptor firing, token:', token); // ← debug line
+  // skip auth APIs + OAuth
+  if (
+    req.url.includes('/api/v1/auth/login') ||
+    req.url.includes('/api/v1/auth/register') ||
+    req.url.includes('/oauth2/')
+  ) {
+    return next(req);
+  }
 
   if (token) {
-    const cloned = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${token}`)
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
     });
-    return next(cloned);
   }
 
   return next(req);

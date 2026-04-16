@@ -1,13 +1,13 @@
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
+import { APP_PATHS } from '../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  private baseUrl = 'http://localhost:8080/auth';
+  private readonly baseUrl = APP_PATHS.authApi;
 
   //  Inject PLATFORM_ID to check browser vs server
   constructor(

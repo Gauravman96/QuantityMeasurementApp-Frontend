@@ -11,10 +11,10 @@ export const routes: Routes = [
 
   { path: 'login', component: Login },
   { path: 'signup', component: Signup },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent  },
   { path: 'history', component: HistoryComponent },
 
 
-  // fallback
+  // fallback(invalid Url handle)
   { path: '**', redirectTo: '' }
 ];

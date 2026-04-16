@@ -4,6 +4,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { APP_PATHS } from '../../core/config/app-config';
 
 @Component({
   selector: 'app-history',
@@ -41,17 +42,18 @@ export class HistoryComponent implements OnInit {
     }
   }
 
+  // 🔥 LOAD HISTORY
   loadHistory() {
     this.loading = true;
     this.errorMsg = '';
 
-    this.http.get<any[]>('http://localhost:8080/api/v1/quantities/history/me')
+    this.http.get<any[]>(`${APP_PATHS.historyApi}/me`)
       .subscribe({
         next: (res) => {
           this.ngZone.run(() => {
             this.loading = false;
             this.history = res;
-            this.filteredHistory = res;
+            this.filterByOperation(this.selectedOperation);
             this.cdr.detectChanges();
           });
         },
@@ -101,12 +103,85 @@ export class HistoryComponent implements OnInit {
     return 'N/A';
   }
 
-  goToDashboard() {
-    this.router.navigate(['/dashboard']);
-  }
+  // DELETE ONE
+// deleteOne(id: number) {
+//   if (!confirm('Delete this record?')) return;
 
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
+//   this.http.delete(`http://localhost:8080/api/v1/history/${id}`, { responseType: 'text' })
+//     .subscribe({
+//       next: () => {
+//         this.history = this.history.filter(h => h.id !== id);
+//         this.filterByOperation(this.selectedOperation);
+//       },
+//       error: () => {
+//         alert('Delete failed');
+//       }
+//     });
+// }
+deleteOne(id: number) {
+  if (!confirm('Delete this record?')) return;
+
+  this.http.delete(`${APP_PATHS.historyApi}/${id}`, {
+    responseType: 'text'
+  })
+  .subscribe({
+    next: () => {
+      this.ngZone.run(() => {
+        this.history = this.history.filter(h => h.id !== id);
+        this.filterByOperation(this.selectedOperation);
+
+        this.cdr.detectChanges();   // 🔥 MAIN FIX
+      });
+    },
+    error: () => {
+      alert('Delete failed');
+    }
+  });
+}
+
+// DELETE ALL
+// deleteAll() {
+//   if (!confirm('Delete ALL history?')) return;
+
+//   this.http.delete(`http://localhost:8080/api/v1/history/all`, { responseType: 'text' })
+//     .subscribe({
+//       next: () => {
+//         this.history = [];
+//         this.filteredHistory = [];
+//       },
+//       error: () => {
+//         alert('Delete all failed');
+//       }
+//     });
+// }
+deleteAll() {
+  if (!confirm('Delete ALL history?')) return;
+
+  this.http.delete(`${APP_PATHS.historyApi}/all`, {
+    responseType: 'text'
+  })
+  .subscribe({
+    next: () => {
+      this.ngZone.run(() => {
+        this.history = [];
+        this.filteredHistory = [];
+
+        this.cdr.detectChanges();   // 🔥 MAIN FIX
+      });
+    },
+    error: () => {
+      alert('Delete all failed');
+    }
+  });
+}
+
+
+goToDashboard() {
+  this.router.navigate(['/dashboard']);
+}
+
+logout() {
+  this.authService.logout();
+  this.router.navigate(['/login']);
+}
 }
