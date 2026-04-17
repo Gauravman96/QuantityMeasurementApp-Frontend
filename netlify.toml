@@ -2,7 +2,7 @@
 
 [build]
   command = "npm run build:netlify"
-  publish = "dist/qm-frontend/browser"
+  publish = "dist/qm-frontend"
 
 [build.environment]
   NODE_VERSION = "20"
